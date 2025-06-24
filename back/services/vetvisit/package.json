@@ -1,0 +1,22 @@
+{
+  "name": "vetvisit",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@apollo/server": "^4.12.2",
+    "@apollo/subgraph": "^2.11.0",
+    "graphql": "^16.11.0",
+    "reflect-metadata": "^0.2.2",
+    "ts-node-dev": "^2.0.0",
+    "typeorm": "^0.3.25",
+    "typescript": "^5.8.3"
+  }
+}

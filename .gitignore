@@ -1,0 +1,16 @@
+node_modules/
+dist/
+.env
+.env.local
+*.log
+yarn.lock
+npm-debug.log*
+pnpm-lock.yaml
+*.tsbuildinfo
+
+services/*/node_modules/
+services/*/dist/
+services/*/*.log
+services/*/*.tsbuildinfo
+services/*/.env
+services/*/.DS_Store
