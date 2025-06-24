@@ -7,7 +7,7 @@ async function bootstrap() {
         serviceList: [
             // List of services
             { name: 'owner', url: 'http://localhost:4002/graphql' },
-
+            {name: 'visit_veterinaire', url:'http://localhost:4004/graphql'}
         ]
     });
 
