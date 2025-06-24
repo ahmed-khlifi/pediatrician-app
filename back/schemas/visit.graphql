@@ -7,6 +7,11 @@ type VisitVeterinaire {
   prises: [Prise!]!
 }
 
+type deleteResponse {
+  message:String!
+  id:ID
+}
+
 extend type Query {
   visit(id: ID!): VisitVeterinaire
   visitList: [VisitVeterinaire!]!
@@ -16,6 +21,7 @@ extend type Mutation {
   createVisit(
     date: String!
     description: String
+    ownerId:ID!
     petId: ID!
   ): VisitVeterinaire!
 
@@ -23,8 +29,9 @@ extend type Mutation {
     id: ID!
     date: String
     description: String
+    ownerId:ID
     petId: ID
   ): VisitVeterinaire!
 
-  deleteVisit(id: ID!): VisitVeterinaire
+  deleteVisit(id: ID!): deleteResponse!
 }

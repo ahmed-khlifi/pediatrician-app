@@ -17,7 +17,7 @@ export const visitResolver = {
     }
   },
   Mutation: {
-    createVisit: async (_: any, { date, description, petId,ownerId }: any) => {
+    createVisit: async (_: any, { date, description, petId,ownerId }:{date:string,description:string,petId:number,ownerId:number}) => {
       const pet = await petRepo.findOneBy({ id: petId });
       if (!pet) throw new Error('Pet not found');
       const owner = await userRepo.findOneBy({id:ownerId})
@@ -40,15 +40,22 @@ export const visitResolver = {
         if (!owner) throw new Error('owner not found');
         data.owner = owner;
       }
-
+      delete data.petId;
+      delete data.ownerId;
       await visitRepo.update(id, data);
-      return visitRepo.findOne({ where: { id }, relations: ['pet', 'prises'] });
+      return visitRepo.findOne({ where: { id }, relations: ['pet', 'prises','owner'] });
     },
     deleteVisit: async (_: any, { id }: any) => {
       const visit = await visitRepo.findOneBy({ id });
-      if (!visit) return null;
+      const visitId = visit?.id;
+      if (!visit) return {
+        message:"couldn't find visit"
+      };
       await visitRepo.remove(visit);
-      return visit;
+      return {
+        message:"Visit Deleted Successfully",
+        id:visitId
+      };
     }
   }
 };
