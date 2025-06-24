@@ -6,6 +6,8 @@ async function bootstrap() {
     const gateway = new ApolloGateway({
         serviceList: [
             // List of services
+            { name: 'owner', url: 'http://localhost:4002/graphql' },
+
         ]
     });
 
