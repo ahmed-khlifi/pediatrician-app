@@ -1,0 +1,30 @@
+type VisitVeterinaire {
+  id: ID!
+  date: String!
+  description: String
+  pet: Pet!
+  owner:UserApp!
+  prises: [Prise!]!
+}
+
+extend type Query {
+  visit(id: ID!): VisitVeterinaire
+  visitList: [VisitVeterinaire!]!
+}
+
+extend type Mutation {
+  createVisit(
+    date: String!
+    description: String
+    petId: ID!
+  ): VisitVeterinaire!
+
+  updateVisit(
+    id: ID!
+    date: String
+    description: String
+    petId: ID
+  ): VisitVeterinaire!
+
+  deleteVisit(id: ID!): VisitVeterinaire
+}

@@ -1,0 +1,17 @@
+type Vaccine {
+  id: ID!
+  name: String!
+  description: String!
+  prises: [Prise!]!
+}
+
+extend type Query {
+  vaccine(id: ID!): Vaccine
+  vaccineList: [Vaccine!]!
+}
+
+extend type Mutation {
+  createVaccine(name: String!, description: String!): Vaccine!
+  updateVaccine(id: ID!, name: String, description: String): Vaccine!
+  deleteVaccine(id: ID!): Vaccine
+}
