@@ -15,6 +15,7 @@ type deleteResponse {
 extend type Query {
   visit(id: ID!): VisitVeterinaire
   visitList: [VisitVeterinaire!]!
+  visitsByOwner(ownerId: ID!): [VisitVeterinaire!]!
 }
 
 extend type Mutation {
