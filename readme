@@ -1,3 +1,29 @@
-## Start the project
-Colone and run in the root folder only 
-    ```bash npm install
+(NOTE: Create a db named `pet` in your local mysql)
+
+
+# RUN THE PROJECT
+
+## Backend
+
+
+    
+    cd back
+    npm install
+
+ 
+
+  ### start All services
+    npm run start:services
+  ### start appolo gateway
+    npm run start:gateway
+
+  ## services
+    vaccine : 4005
+    vetvisit: 4004
+  
+  ## Globale gateway
+    http://localhost:4000/
+
+
+
+

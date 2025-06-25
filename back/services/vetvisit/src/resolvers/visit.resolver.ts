@@ -40,6 +40,7 @@ export const visitResolver = {
         throw new Error("Invalid role");
       }
     },
+
   },
   Mutation: {
     createVisit: async (
@@ -73,6 +74,7 @@ export const visitResolver = {
         owner,
         veterinaire,
       });
+
       return visitRepo.save(visit);
     },
     updateVisit: async (_: any, { id, ...data }: any) => {
@@ -96,6 +98,7 @@ export const visitResolver = {
       return visitRepo.findOne({
         where: { id },
         relations: ["pet", "prises", "owner", "veterinaire"],
+
       });
     },
     deleteVisit: async (_: any, { id }: any) => {
