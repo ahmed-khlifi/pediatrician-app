@@ -13,7 +13,7 @@ export const routes: Routes = [
     component: HomeVetComponent,
   },
   {
-    path: 'pet/:id',
+    path: 'visit/:id',
     component: OnePetComponent,
   },
 ];
