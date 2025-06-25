@@ -25,6 +25,17 @@ export class VisitVeterinaireService {
               owner {
                 id
                 name
+                role
+              }
+              veterinaire {
+                id
+                name
+                role
+              }
+              prises {
+                id
+                date
+                notes
               }
             }
           }
@@ -33,12 +44,12 @@ export class VisitVeterinaireService {
       .pipe(map((res) => res.data.visitList));
   }
 
-  getVisitsByOwner(ownerId: number): Observable<VisitVeterinaire[]> {
+  getVisitsByUser(userId: number): Observable<VisitVeterinaire[]> {
     return this.apollo
-      .query<{ visitsByOwner: VisitVeterinaire[] }>({
+      .query<{ visitsByUser: VisitVeterinaire[] }>({
         query: gql`
-          query($ownerId: ID!) {
-            visitsByOwner(ownerId: $ownerId) {
+          query($userId: ID!) {
+            visitsByUser(userId: $userId) {
               id
               date
               description
@@ -49,13 +60,24 @@ export class VisitVeterinaireService {
               owner {
                 id
                 name
+                role
+              }
+              veterinaire {
+                id
+                name
+                role
+              }
+              prises {
+                id
+                date
+                notes
               }
             }
           }
         `,
-        variables: { ownerId },
+        variables: { userId },
       })
-      .pipe(map((res) => res.data.visitsByOwner));
+      .pipe(map((res) => res.data.visitsByUser));
   }
 
   createVisit(visit: {
@@ -63,6 +85,7 @@ export class VisitVeterinaireService {
     description?: string;
     petId: number;
     ownerId: number;
+    veterinaireId: number;
   }): Observable<VisitVeterinaire> {
     return this.apollo
       .mutate<{ createVisit: VisitVeterinaire }>({
@@ -70,14 +93,16 @@ export class VisitVeterinaireService {
           mutation(
             $date: String!
             $description: String
-            $petId: Int!
-            $ownerId: Int!
+            $petId: ID!
+            $ownerId: ID!
+            $veterinaireId: ID!
           ) {
             createVisit(
               date: $date
               description: $description
               petId: $petId
               ownerId: $ownerId
+              veterinaireId: $veterinaireId
             ) {
               id
               date
@@ -90,46 +115,11 @@ export class VisitVeterinaireService {
       .pipe(map((res) => res.data!.createVisit));
   }
 
-  updateVisit(visit: {
-    id: number;
-    date?: string;
-    description?: string;
-    petId?: number;
-    ownerId?: number;
-  }): Observable<VisitVeterinaire> {
+  deleteVisit(id: number): Observable<{ message: string; id: string }> {
     return this.apollo
-      .mutate<{ updateVisit: VisitVeterinaire }>({
+      .mutate<{ deleteVisit: { message: string; id: string } }>({
         mutation: gql`
-          mutation(
-            $id: Int!
-            $date: String
-            $description: String
-            $petId: Int
-            $ownerId: Int
-          ) {
-            updateVisit(
-              id: $id
-              date: $date
-              description: $description
-              petId: $petId
-              ownerId: $ownerId
-            ) {
-              id
-              date
-              description
-            }
-          }
-        `,
-        variables: { ...visit },
-      })
-      .pipe(map((res) => res.data!.updateVisit));
-  }
-
-  deleteVisit(id: number): Observable<{ message: string; id: number }> {
-    return this.apollo
-      .mutate<{ deleteVisit: { message: string; id: number } }>({
-        mutation: gql`
-          mutation($id: Int!) {
+          mutation($id: ID!) {
             deleteVisit(id: $id) {
               message
               id
