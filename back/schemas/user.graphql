@@ -18,7 +18,29 @@ extend type Query {
 }
 
 extend type Mutation {
-  createUser(name: String!, email: String!, password: String!, role: Role!): UserApp!
-  updateUser(id: ID!, name: String, email: String, password: String, role: Role): UserApp!
+  createUser(
+    name: String!
+    email: String!
+    password: String!
+    role: Role!
+  ): UserApp!
+  updateUser(
+    id: ID!
+    name: String
+    email: String
+    password: String
+    role: Role
+  ): UserApp!
   deleteUser(id: ID!): UserApp
+  login(email: String!, password: String!): UserApp
+  register(
+    name: String!
+    email: String!
+    password: String!
+    role: Role!
+  ): AuthPayload!
+}
+type AuthPayload {
+  token: String!
+  user: UserApp!
 }

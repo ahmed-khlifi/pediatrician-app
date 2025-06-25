@@ -43,7 +43,21 @@ services:
     depends_on:
       mariadb:
         condition: service_healthy
-
+  auth:
+    build:
+      context: ./services/auth
+    container_name: auth-service
+    ports:
+      - "4001:4001"
+    environment:
+      DB_HOST: mariadb
+      DB_PORT: 3306
+      DB_USERNAME: root
+      DB_PASSWORD: root
+      DB_NAME: pet
+    depends_on:
+      mariadb:
+        condition: service_healthy
 
 volumes:
   mariadb-data:
