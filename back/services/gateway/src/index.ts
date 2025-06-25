@@ -1,14 +1,15 @@
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
-import { ApolloGateway } from '@apollo/gateway';
+import { ApolloGateway, IntrospectAndCompose } from '@apollo/gateway';
 
 async function bootstrap() {
     const gateway = new ApolloGateway({
-        serviceList: [
-            // List of services
-            { name: 'owner', url: 'http://localhost:4002/graphql' },
-            {name: 'visit_veterinaire', url:'http://localhost:4004/graphql'}
-        ]
+        supergraphSdl: new IntrospectAndCompose({
+            subgraphs: [
+                { name: 'vaccine', url: 'http://localhost:4005/graphql' },
+                { name: 'vetvisit', url: 'http://localhost:4004/graphql' },
+            ],
+        }),
     });
 
     const server = new ApolloServer({
