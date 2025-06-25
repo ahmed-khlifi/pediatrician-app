@@ -12,20 +12,35 @@ export const visitResolver = {
     visit: async (_: any, { id }: any) => {
       return visitRepo.findOne({
         where: { id },
-        relations: ["pet", "prises", "owner"],
+        relations: ["pet", "prises", "owner", "veterinaire"],
       });
     },
     visitList: async () => {
-      return visitRepo.find({ relations: ["pet", "prises", "owner"] });
-    },
-    visitsByOwner: async (_: any, { ownerId }: { ownerId: number }) => {
-      const owner = await userRepo.findOne({ where: { id: ownerId } });
-      if (!owner) throw new Error("Owner not found");
       return visitRepo.find({
-        where: { owner: { id: ownerId } },
-        relations: ["pet", "prises", "owner"],
+        relations: ["pet", "prises", "owner", "veterinaire"],
       });
     },
+    visitsByUser: async (_: any, { userId }: { userId: number }) => {
+      const user = await userRepo.findOne({ where: { id: userId } });
+      if (!user) throw new Error("User not found");
+
+      const role = user.role;
+
+      if (role === "OWNER") {
+        return visitRepo.find({
+          where: { owner: { id: userId } },
+          relations: ["pet", "prises", "owner", "veterinaire"],
+        });
+      } else if (role === "VETERINAIRE") {
+        return visitRepo.find({
+          where: { veterinaire: { id: userId } },
+          relations: ["pet", "prises", "owner", "veterinaire"],
+        });
+      } else {
+        throw new Error("Invalid role");
+      }
+    },
+
   },
   Mutation: {
     createVisit: async (
@@ -35,13 +50,31 @@ export const visitResolver = {
         description,
         petId,
         ownerId,
-      }: { date: string; description: string; petId: number; ownerId: number }
+        veterinaireId,
+      }: {
+        date: string;
+        description?: string;
+        petId: number;
+        ownerId: number;
+        veterinaireId: number;
+      }
     ) => {
       const pet = await petRepo.findOneBy({ id: petId });
-      if (!pet) throw new Error("Pet not found");
       const owner = await userRepo.findOneBy({ id: ownerId });
-      if (!owner) throw new Error("User not found !");
-      const visit = visitRepo.create({ date, description, pet, owner });
+      const veterinaire = await userRepo.findOneBy({ id: veterinaireId });
+
+      if (!pet) throw new Error("Pet not found");
+      if (!owner) throw new Error("Owner not found");
+      if (!veterinaire) throw new Error("Veterinaire not found");
+
+      const visit = visitRepo.create({
+        date,
+        description,
+        pet,
+        owner,
+        veterinaire,
+      });
+
       return visitRepo.save(visit);
     },
     updateVisit: async (_: any, { id, ...data }: any) => {
@@ -64,7 +97,8 @@ export const visitResolver = {
       await visitRepo.update(id, data);
       return visitRepo.findOne({
         where: { id },
-        relations: ["pet", "prises", "owner"],
+        relations: ["pet", "prises", "owner", "veterinaire"],
+
       });
     },
     deleteVisit: async (_: any, { id }: any) => {

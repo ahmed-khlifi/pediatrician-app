@@ -3,35 +3,42 @@ type VisitVeterinaire {
   date: String!
   description: String
   pet: Pet!
-  owner:UserApp!
+  owner: UserApp!
+  veterinaire: UserApp!
   prises: [Prise!]!
 }
 
 type deleteResponse {
-  message:String!
-  id:ID
+  message: String!
+  id: ID
 }
 
 extend type Query {
   visit(id: ID!): VisitVeterinaire
   visitList: [VisitVeterinaire!]!
+<<<<<<< front-branch
+  visitsByUser(userId: ID!): [VisitVeterinaire!]!
+=======
   visitsByOwner(ownerId: ID!): [VisitVeterinaire!]!
+>>>>>>> main
 }
 
 extend type Mutation {
   createVisit(
     date: String!
     description: String
-    ownerId:ID!
+    ownerId: ID!
     petId: ID!
+    veterinaireId: ID!
   ): VisitVeterinaire!
 
   updateVisit(
     id: ID!
     date: String
     description: String
-    ownerId:ID
+    ownerId: ID
     petId: ID
+    veterinaireId: ID
   ): VisitVeterinaire!
 
   deleteVisit(id: ID!): deleteResponse!
