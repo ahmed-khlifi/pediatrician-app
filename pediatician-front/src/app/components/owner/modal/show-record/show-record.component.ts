@@ -1,17 +1,18 @@
+import { DatePipe } from '@angular/common';
 import { Component, inject, Inject } from '@angular/core';
-import { VisitVeterinaireService } from '../../../../services/visit-veterinaire.service';
 import {
   MAT_DIALOG_DATA,
   MatDialogActions,
   MatDialogContent,
   MatDialogRef,
 } from '@angular/material/dialog';
-import { DatePipe } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { VisitVeterinaireService } from '../../../../services/visit-veterinaire.service';
 
 @Component({
   selector: 'app-show-record',
   standalone: true,
-  imports: [MatDialogContent, MatDialogActions, DatePipe],
+  imports: [MatDialogContent, MatDialogActions, DatePipe, RouterModule],
   templateUrl: './show-record.component.html',
   styleUrl: './show-record.component.css',
 })
@@ -26,7 +27,7 @@ export class ShowRecordComponent {
   ) {}
 
   ngOnInit(): void {
-    this.visitService.getVisitsByPet(this.data.visit.pet.id).subscribe({
+    this.visitService.getVisitsByPet(this.data.id).subscribe({
       next: (vs) => {
         this.visits = vs;
       },

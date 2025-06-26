@@ -5,7 +5,6 @@ import { UserApp } from "../entities/UserApp";
 import { Vaccine } from "../entities/Vaccine";
 import { VisitVeterinaire } from "../entities/VisitVeterinaire";
 
-
 export const AppDataSource = new DataSource({
     type: 'mariadb',
     host: process.env.DB_HOST || '127.0.0.1',
@@ -16,5 +15,4 @@ export const AppDataSource = new DataSource({
     synchronize: true,
     logging: false,
     entities: [UserApp, Pet, VisitVeterinaire, Vaccine, Prise],
-
 });

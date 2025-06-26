@@ -1,0 +1,35 @@
+import { gql } from "apollo-server-express";
+
+export const PriseTypeDefs = gql`
+  type Prise {
+    id: ID!
+    date: String!
+    notes: String
+    visit: VisitVeterinaire!
+    vaccine: Vaccine!
+  }
+
+  extend type Query {
+    prise(id: ID!): Prise
+    priseList: [Prise!]!
+  }
+
+  extend type Mutation {
+    createPrise(
+      date: String!
+      notes: String
+      visitId: ID!
+      vaccineId: ID!
+    ): Prise!
+
+    updatePrise(
+      id: ID!
+      date: String
+      notes: String
+      visitId: ID
+      vaccineId: ID
+    ): Prise!
+
+    deletePrise(id: ID!): Prise
+  }
+`;
