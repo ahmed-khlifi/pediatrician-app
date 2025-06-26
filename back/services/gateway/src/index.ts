@@ -13,9 +13,18 @@ async function bootstrap() {
   const gateway = new ApolloGateway({
     supergraphSdl: new IntrospectAndCompose({
       subgraphs: [
-        { name: "vaccine", url: "http://localhost:4005/graphql" },
-        { name: "vetvisit", url: "http://localhost:4004/graphql" },
-        { name: "auth", url: "http://localhost:4001/graphql" },
+        {
+          name: "vaccine",
+          url: process.env.VACCINE_URL || "http://127.0.0.1:4005/graphql",
+        },
+        {
+          name: "vetvisit",
+          url: process.env.VETVISIT_URL || "http://127.0.0.1:4004/graphql",
+        },
+        {
+          name: "auth",
+          url: process.env.AUTH_URL || "http://127.0.0.1:4001/graphql",
+        },
       ],
     }),
 

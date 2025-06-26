@@ -1,18 +1,18 @@
 import { DataSource } from "typeorm";
-import { UserApp } from "../entities/UserApp";
 import { Pet } from "../entities/Pet";
-import { VisitVeterinaire } from "../entities/VisitVeterinaire";
-import { Vaccine } from "../entities/Vaccine";
 import { Prise } from "../entities/Prise";
+import { UserApp } from "../entities/UserApp";
+import { Vaccine } from "../entities/Vaccine";
+import { VisitVeterinaire } from "../entities/VisitVeterinaire";
 
 export const AppDataSource = new DataSource({
-    type: 'mariadb',
-    host: 'localhost',
-    port: 3306,
-    username: 'root',
-    password: '',
-    database: 'pet',
-    synchronize: true,
-    logging: false,
-    entities: [UserApp, Pet, VisitVeterinaire, Vaccine, Prise],
+  type: "mariadb",
+  host: process.env.DB_HOST || "localhost",
+  port: Number(process.env.DB_PORT) || 3306,
+  username: process.env.DB_USERNAME || "root",
+  password: process.env.DB_PASSWORD || "",
+  database: process.env.DB_NAME || "pet",
+  synchronize: true,
+  logging: false,
+  entities: [UserApp, Pet, VisitVeterinaire, Vaccine, Prise],
 });

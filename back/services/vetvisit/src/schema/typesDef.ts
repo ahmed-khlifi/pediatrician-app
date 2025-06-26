@@ -3,7 +3,10 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 // Résolution absolue du dossier contenant les fichiers .graphql
-const schemasDir = path.resolve(__dirname, '../../../../schemas');
+const schemasDir = path.resolve(
+  __dirname,
+  process.env.SCHEMAS_PATH || "../../../../schemas"
+);
 
 const typeDefsArray = fs
   .readdirSync(schemasDir)
