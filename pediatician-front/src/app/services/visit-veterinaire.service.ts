@@ -91,42 +91,6 @@ export class VisitVeterinaireService {
       .pipe(map((res) => res.data.visitsByUser));
   }
 
-  getVisitsByPet(userId: number, petId: number): Observable<VisitVeterinaire[]> {
-    return this.apollo
-      .query<{ visitsByPet: VisitVeterinaire[] }>({
-        query: gql`
-          query($userId: ID!, $petId: ID!) {
-            visitsByUser(userId: $userId,petId: $petId) {
-              id
-              date
-              description
-              pet {
-                id
-                name
-              }
-              owner {
-                id
-                name
-                role
-              }
-              veterinaire {
-                id
-                name
-                role
-              }
-              prises {
-                id
-                date
-                notes
-              }
-            }
-          }
-        `,
-        variables: { userId, petId },
-      })
-      .pipe(map((res) => res.data.visitsByPet));
-  }
-
   createVisit(visit: {
     date: string;
     description?: string;

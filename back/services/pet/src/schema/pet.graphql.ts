@@ -8,7 +8,6 @@ export const PetTypeDefs = gql`
     race: String!
     age: Int!
     petImage: String!
-    visits: [VisitVeterinaire!]!
   }
 
   extend type Query {
