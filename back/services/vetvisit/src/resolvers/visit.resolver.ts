@@ -41,6 +41,30 @@ export const visitResolver = {
       }
     },
 
+    visitsByPet: async (_: any, { petId, userId }: { petId: number, userId: number }) => {
+      const pet = await petRepo.findOne({ where: { id: petId } });
+      if (!pet) throw new Error("Pet not found");
+
+      const user = await userRepo.findOne({ where: { id: userId } });
+      if (!user) throw new Error("User not found");
+
+      const role = user.role;
+
+      if (role === "OWNER") {
+        return visitRepo.find({
+          where: { owner: { id: userId }, pet: { id: petId } },
+          relations: ["pet", "prises", "owner", "veterinaire"],
+        });
+      } else if (role === "VETERINAIRE") {
+        return visitRepo.find({
+          where: { veterinaire: { id: userId }, pet: { id: petId } },
+          relations: ["pet", "prises", "owner", "veterinaire"],
+        });
+      } else {
+        throw new Error("Invalid role");
+      }
+    },
+
   },
   Mutation: {
     createVisit: async (

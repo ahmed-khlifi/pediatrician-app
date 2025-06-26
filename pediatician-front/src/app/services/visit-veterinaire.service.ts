@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Apollo } from 'apollo-angular';
-import { gql } from 'apollo-angular';
-import { VisitVeterinaire } from '../models/visit-veterinaire';
+import { Apollo, gql } from 'apollo-angular';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { VisitVeterinaire } from '../models/visit-veterinaire';
 
 @Injectable({ providedIn: 'root' })
 export class VisitVeterinaireService {
-  constructor(private apollo: Apollo) {}
+  constructor(private apollo: Apollo) { }
 
   getVisits(): Observable<VisitVeterinaire[]> {
     return this.apollo
@@ -78,6 +77,42 @@ export class VisitVeterinaireService {
         variables: { userId },
       })
       .pipe(map((res) => res.data.visitsByUser));
+  }
+
+  getVisitsByPet(userId: number, petId: number): Observable<VisitVeterinaire[]> {
+    return this.apollo
+      .query<{ visitsByPet: VisitVeterinaire[] }>({
+        query: gql`
+          query($userId: ID!, $petId: ID!) {
+            visitsByUser(userId: $userId,petId: $petId) {
+              id
+              date
+              description
+              pet {
+                id
+                name
+              }
+              owner {
+                id
+                name
+                role
+              }
+              veterinaire {
+                id
+                name
+                role
+              }
+              prises {
+                id
+                date
+                notes
+              }
+            }
+          }
+        `,
+        variables: { userId, petId },
+      })
+      .pipe(map((res) => res.data.visitsByPet));
   }
 
   createVisit(visit: {
