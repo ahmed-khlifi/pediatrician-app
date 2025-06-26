@@ -7,7 +7,7 @@ const visitRepo = AppDataSource.getRepository(VisitVeterinaire);
 const petRepo = AppDataSource.getRepository(Pet);
 const userRepo = AppDataSource.getRepository(UserApp);
 
-export const visitResolver = {
+export const VetVisitResolver = {
   Query: {
     visit: async (_: any, { id }: any) => {
       return visitRepo.findOne({

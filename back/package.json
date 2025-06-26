@@ -11,7 +11,7 @@
     "start:vaccine": "npm run start --prefix services/vaccine",
     "start:vetvisit": "npm run start --prefix services/vetvisit",
     "start:gateway": "npm run start --prefix services/gateway",
-    "start:services": "concurrently -n vaccine,vetvisit -c green,blue \"npm run start:vaccine\" \"npm run start:vetvisit\"",
+    "start:services": "concurrently -n vaccine,vetvisit,pet -c green,blue,violet \"npm run start:vaccine\" \"npm run start:vetvisit\" \"npm run start:pet\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

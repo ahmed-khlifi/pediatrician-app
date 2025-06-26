@@ -1,13 +1,13 @@
 import { petResolver } from "../resolvers/pet.resolver";
-import { visitResolver } from "../resolvers/visit.resolver";
+import { VetVisitResolver } from "../resolvers/vetVisit.resolver";
 
 export const resolvers = {
   Query: {
-    ...visitResolver.Query,
+    ...VetVisitResolver.Query,
     ...petResolver.Query,
   },
   Mutation: {
-    ...visitResolver.Mutation,
+    ...VetVisitResolver.Mutation,
     ...petResolver.Mutation,
   }
 };

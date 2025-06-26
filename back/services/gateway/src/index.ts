@@ -1,6 +1,6 @@
+import { ApolloGateway, IntrospectAndCompose } from '@apollo/gateway';
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
-import { ApolloGateway, IntrospectAndCompose } from '@apollo/gateway';
 
 async function bootstrap() {
     const gateway = new ApolloGateway({
@@ -8,6 +8,7 @@ async function bootstrap() {
             subgraphs: [
                 { name: 'vaccine', url: 'http://localhost:4005/graphql' },
                 { name: 'vetvisit', url: 'http://localhost:4004/graphql' },
+                { name: 'pet', url: 'http://localhost:4008/graphql' },
             ],
         }),
     });

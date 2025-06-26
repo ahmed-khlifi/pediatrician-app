@@ -2,17 +2,22 @@ import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
 import { buildSubgraphSchema } from '@apollo/subgraph';
 import { AppDataSource } from './src/config/ormConfig';
-import { resolvers } from './src/routes/vetVisit.route';
-import { typeDefs } from './src/schema/typesDef';
-
+import { petResolver } from './src/resolvers/pet.resolver';
+import { VetVisitResolver } from './src/resolvers/vetVisit.resolver';
+import { PetTypeDefs } from './src/schema/pet.graphql';
+import { VetVisitTypeDefs } from './src/schema/vetVisit.graphql';
 
 
 AppDataSource.initialize().then(() => {
   const server = new ApolloServer({
     schema: buildSubgraphSchema([
       {
-        typeDefs,
-        resolvers
+        typeDefs: PetTypeDefs,
+        resolvers: petResolver
+      },
+      {
+        typeDefs: VetVisitTypeDefs,
+        resolvers: VetVisitResolver
       }
     ])
   });
