@@ -1,0 +1,34 @@
+type Pet {
+  id: ID!
+  name: String!
+  type: String!
+  race: String!
+  age: Int!
+  visits: [VisitVeterinaire!]!
+}
+
+extend type Query {
+  pet(id: ID!): Pet
+  petList: [Pet!]!
+}
+
+extend type Mutation {
+  createPet(
+    name: String!
+    type: String!
+    race: String!
+    age: Int!
+    ownerId: ID!
+  ): Pet!
+
+  updatePet(
+    id: ID!
+    name: String
+    type: String
+    race: String
+    age: Int
+    ownerId: ID
+  ): Pet!
+
+  deletePet(id: ID!): Pet
+}
