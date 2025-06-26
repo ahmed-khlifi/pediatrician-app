@@ -3,16 +3,19 @@ import { CredentialsComponent } from '../credentials/credentials.component';
 import { PetsComponent } from '../pets/pets.component';
 import { VisitsComponent } from '../visits/visits.component';
 import { VisitVeterinaireService } from '../../../services/visit-veterinaire.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ShowRecordComponent } from '../modal/show-record/show-record.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CredentialsComponent, PetsComponent, VisitsComponent],
+  imports: [CredentialsComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
 export class HomeComponent {
-  visits: WritableSignal<any> = signal([]);
+  readonly dialog = inject(MatDialog);
+  visits: WritableSignal<any[]> = signal([]);
   visitService: VisitVeterinaireService = inject(VisitVeterinaireService);
   userId: number = 1; //owner
   ngOnInit(): void {
@@ -23,6 +26,17 @@ export class HomeComponent {
       },
       error: (err) => {
         console.log(err);
+      },
+    });
+  }
+
+  public showRecord(id: number) {
+    const visit = this.visits().find((visit) => visit.id == id);
+    this.dialog.open(ShowRecordComponent, {
+      width: '600px',
+      height: '750px',
+      data: {
+        visit,
       },
     });
   }

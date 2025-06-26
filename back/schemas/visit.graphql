@@ -16,11 +16,8 @@ type deleteResponse {
 extend type Query {
   visit(id: ID!): VisitVeterinaire
   visitList: [VisitVeterinaire!]!
-<<<<<<< front-branch
   visitsByUser(userId: ID!): [VisitVeterinaire!]!
-=======
-  visitsByOwner(ownerId: ID!): [VisitVeterinaire!]!
->>>>>>> main
+  visitsByPet(petId: ID!): [VisitVeterinaire!]!
 }
 
 extend type Mutation {
