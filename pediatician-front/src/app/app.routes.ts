@@ -30,5 +30,5 @@ export const routes: Routes = [
     component: OnePetComponent,
     canActivate: [authGuard],
   },
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '**', redirectTo: 'login', pathMatch: 'full' },
 ];

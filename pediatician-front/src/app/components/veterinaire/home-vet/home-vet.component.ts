@@ -1,7 +1,8 @@
 import { Component, inject } from '@angular/core';
-import { PetsComponent } from '../../veterinaire/pets/pets.component';
 import { VisitVeterinaire } from '../../../models/visit-veterinaire';
+import { AuthService } from '../../../services/auth.service';
 import { VisitVeterinaireService } from '../../../services/visit-veterinaire.service';
+import { PetsComponent } from '../../veterinaire/pets/pets.component';
 
 @Component({
   selector: 'app-home-vet',
@@ -13,7 +14,8 @@ import { VisitVeterinaireService } from '../../../services/visit-veterinaire.ser
 export class HomeVetComponent {
   visits: VisitVeterinaire[] = [];
   visitService: VisitVeterinaireService = inject(VisitVeterinaireService);
-  userId: number = 2; //veterinaire
+  authService: AuthService = inject(AuthService);
+  userId: number = this.authService.getCurrentUser().id; //veterinaire
   ngOnInit(): void {
     this.visitService.getVisitsByUser(this.userId).subscribe({
       next: (data) => {
