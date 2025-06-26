@@ -26,45 +26,39 @@ export const visitResolver = {
 
       const role = user.role;
 
+      let query = visitRepo
+        .createQueryBuilder("visit")
+        .leftJoinAndSelect("visit.pet", "pet")
+        .leftJoinAndSelect("visit.owner", "owner")
+        .leftJoinAndSelect("visit.veterinaire", "veterinaire")
+        .leftJoinAndSelect("visit.prises", "prise")
+        .leftJoinAndSelect("prise.vaccine", "vaccine");
+
       if (role === "OWNER") {
-        return visitRepo.find({
-          where: { owner: { id: userId } },
-          relations: ["pet", "prises", "owner", "veterinaire"],
-        });
+        query = query.where("owner.id = :id", { id: userId });
       } else if (role === "VETERINAIRE") {
-        return visitRepo.find({
-          where: { veterinaire: { id: userId } },
-          relations: ["pet", "prises", "owner", "veterinaire"],
-        });
+        query = query.where("veterinaire.id = :id", { id: userId });
       } else {
         throw new Error("Invalid role");
       }
-    },
 
-    visitsByPet: async (_: any, { petId, userId }: { petId: number, userId: number }) => {
+      return query.getMany();
+    },
+    visitsByPet: async (_: any, { petId }: { petId: number }) => {
       const pet = await petRepo.findOne({ where: { id: petId } });
       if (!pet) throw new Error("Pet not found");
 
-      const user = await userRepo.findOne({ where: { id: userId } });
-      if (!user) throw new Error("User not found");
+      const query = visitRepo
+        .createQueryBuilder("visit")
+        .leftJoinAndSelect("visit.pet", "pet")
+        .leftJoinAndSelect("visit.owner", "owner")
+        .leftJoinAndSelect("visit.veterinaire", "veterinaire")
+        .leftJoinAndSelect("visit.prises", "prise")
+        .leftJoinAndSelect("prise.vaccine", "vaccine")
+        .where("pet.id = :petId", { petId });
 
-      const role = user.role;
-
-      if (role === "OWNER") {
-        return visitRepo.find({
-          where: { owner: { id: userId }, pet: { id: petId } },
-          relations: ["pet", "prises", "owner", "veterinaire"],
-        });
-      } else if (role === "VETERINAIRE") {
-        return visitRepo.find({
-          where: { veterinaire: { id: userId }, pet: { id: petId } },
-          relations: ["pet", "prises", "owner", "veterinaire"],
-        });
-      } else {
-        throw new Error("Invalid role");
-      }
+      return query.getMany();
     },
-
   },
   Mutation: {
     createVisit: async (
@@ -122,7 +116,6 @@ export const visitResolver = {
       return visitRepo.findOne({
         where: { id },
         relations: ["pet", "prises", "owner", "veterinaire"],
-
       });
     },
     deleteVisit: async (_: any, { id }: any) => {

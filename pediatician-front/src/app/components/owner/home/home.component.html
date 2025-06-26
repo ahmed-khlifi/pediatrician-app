@@ -1,3 +1,30 @@
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-4  card shadow p-2">
+			<app-credentials></app-credentials>
+		</div>
+		<!-- MERR matparcourich bel Pet parcourii bel VET visit w brabi ken bech taamel paginator lezmou ymmachi deux colonne louta -->
+		<div class="col-7 ms-4  card shadow p-2">
+      <div class="row">
+		@for (pet of groupedVisits().keys(); track pet) {
+	<!--@for (visit of groupedVisits(); track $index) {-->
+          <div class="col-3 card" style="width: 18rem;">
+            <img [src]="pet.petImage" class="card-img-top img-fluid" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">{{pet.name}}</h5>
+              <p class="card-text">type : {{pet.type}}</p>
+              <p class="card-text">age : {{pet.age}}</p>
+              <p class="card-text">race : {{pet.race}}</p>
+              <button (click)="showRecord(pet.id)"  class="btn btn-primary">vaccination record</button>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+	</div>
+</div>
+
 <!-- <div class="container-fluid">
 	<div class="row">
 		<div class="col-4  card shadow p-2">
@@ -10,14 +37,14 @@
 			<app-visits [visits]="visits()"></app-visits>
 		</div>
 	</div>
-</div> -->
+</div> 
 <div class="flex">
 	@for (entry of arr; track entry[0].id) {
 	<button class="w-full p-2 border rounded mb-2" [class.selected]="selectedPet()?.id === entry[0].id"
 		(click)="selectPet(entry[0])">
 		{{ entry[0].name }}
 	</button>
-	}
+	}-->
 	<!-- Left: Pet Selector -->
 	<!-- <div class="w-1/3 border-r p-4">
 		@for ([pet, items] of groupedVisits(); track pet; let i = $index) {
@@ -29,6 +56,7 @@
 	</div> -->
 
 	<!-- Right: Visits Carousel -->
+	 <!-- 
 	<div class="w-2/3 p-4">
 		@if (selectedPet(); as pet) {
 		@if (groupedVisits().get(pet); as visits) {
@@ -48,4 +76,4 @@
 		}
 		}
 	</div>
-</div>
+</div>-->

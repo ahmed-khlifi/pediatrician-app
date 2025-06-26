@@ -35,6 +35,10 @@ export class VisitVeterinaireService {
                 id
                 date
                 notes
+                vaccine {
+                  id
+                  name
+                }
               }
             }
           }
@@ -55,6 +59,10 @@ export class VisitVeterinaireService {
               pet {
                 id
                 name
+                petImage
+                race
+                age
+                type
               }
               owner {
                 id
@@ -70,6 +78,10 @@ export class VisitVeterinaireService {
                 id
                 date
                 notes
+                vaccine {
+                  id
+                  name
+                }
               }
             }
           }
@@ -164,5 +176,126 @@ export class VisitVeterinaireService {
         variables: { id },
       })
       .pipe(map((res) => res.data!.deleteVisit));
+  }
+
+  getVisitsByPet(petId: number): Observable<VisitVeterinaire[]> {
+    return this.apollo
+      .query<{ visitsByPet: VisitVeterinaire[] }>({
+        query: gql`
+          query($petId: ID!) {
+            visitsByPet(petId: $petId) {
+              id
+              date
+              description
+              pet {
+                id
+                name
+              }
+              owner {
+                id
+                name
+                role
+              }
+              veterinaire {
+                id
+                name
+                role
+              }
+              prises {
+                id
+                date
+                notes
+                vaccine {
+                  id
+                  name
+                  description
+                }
+              }
+            }
+          }
+        `,
+        variables: { petId },
+      })
+      .pipe(map((res) => res.data.visitsByPet));
+  }
+
+  getVisitById(id: number): Observable<VisitVeterinaire> {
+    return this.apollo
+      .query<{ visit: VisitVeterinaire }>({
+        query: gql`
+          query($id: ID!) {
+            visit(id: $id) {
+              id
+              date
+              description
+              pet {
+                id
+                name
+                age
+                race
+                type
+                petImage
+              }
+              owner {
+                id
+                name
+                role
+                email
+              }
+              veterinaire {
+                id
+                name
+                role
+                email
+              }
+              prises {
+                id
+                date
+                notes
+              }
+            }
+          }
+        `,
+        variables: { id },
+      })
+      .pipe(map((res) => res.data.visit));
+  }
+
+  updateVisit(visit: {
+    id: number;
+    date?: string;
+    description?: string;
+    petId?: number;
+    ownerId?: number;
+    veterinaireId?: number;
+  }): Observable<VisitVeterinaire> {
+    return this.apollo
+      .mutate<{ updateVisit: VisitVeterinaire }>({
+        mutation: gql`
+          mutation(
+            $id: ID!
+            $date: String
+            $description: String
+            $petId: ID
+            $ownerId: ID
+            $veterinaireId: ID
+          ) {
+            updateVisit(
+              id: $id
+              date: $date
+              description: $description
+              petId: $petId
+              ownerId: $ownerId
+              veterinaireId: $veterinaireId
+            ) {
+              id
+              date
+              description
+            }
+          }
+        `,
+        variables: { ...visit },
+      })
+      .pipe(map((res) => res.data!.updateVisit));
   }
 }
