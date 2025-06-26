@@ -16,7 +16,7 @@ export const PriseTypeDefs = gql`
   
   extend type Query {
     prise(id: ID!): Prise
-    priseList: [Prise!]!
+    priseList: [Prise!]
   }
 
   extend type Mutation {
