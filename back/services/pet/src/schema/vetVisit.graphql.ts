@@ -1,33 +1,45 @@
 import { gql } from "apollo-server-express";
 
 export const VetVisitTypeDefs = gql`
-type VisitVeterinaire {
-  id: ID!
-  date: String!
-  description: String!
-  pet: Pet!
-}
-
-extend type Query {
-  visitVeterinaire(id: ID!): VisitVeterinaire
-  visitVeterinaireList: [VisitVeterinaire!]!
-  visitsByPet(petId: ID!): [VisitVeterinaire!]!
-}
-
-extend type Mutation {
-  createVisitVeterinaire(
-    date: String!
-    description: String!
-    petId: ID!
-  ): VisitVeterinaire!
-
-  updateVisitVeterinaire(
+  type VisitVeterinaire {
     id: ID!
-    date: String
+    date: String!
     description: String
-    petId: ID
-  ): VisitVeterinaire!
+    pet: Pet!
+    owner: UserApp!
+    veterinaire: UserApp!
+    prises: [Prise!]!
+  }
 
-  deleteVisitVeterinaire(id: ID!): VisitVeterinaire
-}
-`
+  type deleteResponse {
+    message: String!
+    id: ID
+  }
+
+  extend type Query {
+    visit(id: ID!): VisitVeterinaire
+    visitList: [VisitVeterinaire!]!
+    visitsByUser(userId: ID!): [VisitVeterinaire!]!
+  }
+
+  extend type Mutation {
+    createVisit(
+      date: String!
+      description: String
+      ownerId: ID!
+      petId: ID!
+      veterinaireId: ID!
+    ): VisitVeterinaire!
+
+    updateVisit(
+      id: ID!
+      date: String
+      description: String
+      ownerId: ID
+      petId: ID
+      veterinaireId: ID
+    ): VisitVeterinaire!
+
+    deleteVisit(id: ID!): deleteResponse!
+  }
+`;

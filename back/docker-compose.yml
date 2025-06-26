@@ -84,23 +84,23 @@ services:
     networks:
       - app-network
 
-pet:
-  build:
-    context: ./services/pet
-  container_name: pet-service
-  ports:
-    - "4008:4008"
-  environment:
-    DB_HOST: mariadb
-    DB_PORT: 3306
-    DB_USERNAME: root
-    DB_PASSWORD: root
-    DB_NAME: pet
-  depends_on:
-    mariadb:
-      condition: service_healthy
-  networks:
-    - app-network
+  pet:
+    build:
+      context: ./services/pet
+    container_name: pet-service
+    ports:
+      - "4008:4008"
+    environment:
+      DB_HOST: mariadb
+      DB_PORT: 3306
+      DB_USERNAME: root
+      DB_PASSWORD: root
+      DB_NAME: pet
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    networks:
+      - app-network
 
 
 volumes:
