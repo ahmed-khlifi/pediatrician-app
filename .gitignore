@@ -14,3 +14,5 @@ services/*/*.log
 services/*/*.tsbuildinfo
 services/*/.env
 services/*/.DS_Store
+
+pediatician-front/node_modules

@@ -1,4 +1,10 @@
-<table class="table w-100">
+<div class="container mt-5 ms-3">
+	<h2 mat-dialog-title>
+		Vaccine Record For Pet : {{data.visit.pet.name}}
+	</h2>
+</div>
+<mat-dialog-content>
+  <table class="table w-100">
 	<thead>
 		<tr>
 			<th scope="col">Date</th>
@@ -8,7 +14,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		@for (visit of visits(); track $index) {
+		@for (visit of visits; track $index) {
       <tr>
         <td>
            {{visit.date |date}}
@@ -32,3 +38,12 @@
     }
 	</tbody>
 </table>
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+	<button (click)="close()"
+		class="btn btn-secondary">
+		Close
+	</button>
+</mat-dialog-actions>

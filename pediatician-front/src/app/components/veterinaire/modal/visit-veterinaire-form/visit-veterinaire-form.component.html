@@ -1,12 +1,78 @@
-<h2 mat-dialog-title>
-	Dialog with elements
-</h2>
 <mat-dialog-content>
-	This dialog showcases the title, close, content and actions elements.
+	<form [formGroup]="visitForm"
+		(ngSubmit)="onSubmit()"
+		class="needs-validation"
+		novalidate>
+		<div class="mb-3">
+			<label for="date"
+				class="form-label">
+				Date de la visite
+			</label>
+			<input [ngClass]="{ 'is-invalid': visitForm.get('date')?.invalid && visitForm.get('date')?.touched }"
+				type="date"
+				id="date"
+				class="form-control"
+				formControlName="date">
+			<div *ngIf="visitForm.get('date')?.errors?.['required']"
+				class="invalid-feedback">
+				La date est obligatoire.
+			</div>
+		</div>
+
+		<div class="mb-3">
+			<label for="description"
+				class="form-label">
+				Description
+			</label>
+			<textarea id="description"
+				class="form-control"
+				rows="3"
+				formControlName="description"></textarea>
+		</div>
+
+		<div class="mb-3">
+			<label for="petId"
+				class="form-label">
+				Animal
+			</label>
+			<input [ngClass]="{ 'is-invalid': visitForm.get('petId')?.invalid && visitForm.get('petId')?.touched }"
+				type="number"
+				id="petId"
+				class="form-control"
+				formControlName="petId">
+			<div *ngIf="visitForm.get('petId')?.errors?.['required']"
+				class="invalid-feedback">
+				L'ID de l'animal est requis.
+			</div>
+		</div>
+
+		<div class="mb-3">
+			<label for="ownerId"
+				class="form-label">
+				Propriétaire
+			</label>
+			<input [ngClass]="{ 'is-invalid': visitForm.get('ownerId')?.invalid && visitForm.get('ownerId')?.touched }"
+				type="number"
+				id="ownerId"
+				class="form-control"
+				formControlName="ownerId">
+			<div *ngIf="visitForm.get('ownerId')?.errors?.['required']"
+				class="invalid-feedback">
+				L'ID du propriétaire est requis.
+			</div>
+		</div>
+
+		<mat-dialog-actions align="end">
+			<button (click)="close()"
+				type="button"
+				class="btn btn-secondary me-2">
+				Annuler
+			</button>
+			<button [disabled]="visitForm.invalid"
+				type="submit"
+				class="btn btn-primary">
+				{{ data.message === 'add' ? 'Créer' : 'Mettre à jour' }}
+			</button>
+		</mat-dialog-actions>
+	</form>
 </mat-dialog-content>
-<mat-dialog-actions>
-	<button (click)="close()"
-		class="btn btn-secondary">
-		Close
-	</button>
-</mat-dialog-actions>

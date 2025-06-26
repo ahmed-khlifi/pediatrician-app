@@ -4,11 +4,21 @@
 			<app-credentials></app-credentials>
 		</div>
 		<!-- MERR matparcourich bel Pet parcourii bel VET visit w brabi ken bech taamel paginator lezmou ymmachi deux colonne louta -->
-		<div class="col-4  card shadow p-2">
-			<app-pets></app-pets>
-		</div>
-		<div class="col-4  card shadow p-2">
-			<app-visits [visits]="visits()"></app-visits>
-		</div>
+		<div class="col-7 ms-4  card shadow p-2">
+      <div class="row">
+	@for (visit of visits(); track $index) {
+          <div class="col-3 card" style="width: 18rem;">
+            <img [src]="visit.pet.petImage" class="card-img-top img-fluid" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">{{visit.pet.name}}</h5>
+              <p class="card-text">type : {{visit.pet.type}}</p>
+              <p class="card-text">age : {{visit.pet.age}}</p>
+              <p class="card-text">race : {{visit.pet.race}}</p>
+              <button (click)="showRecord(visit.id)"  class="btn btn-primary">vaccination record</button>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
 	</div>
 </div>

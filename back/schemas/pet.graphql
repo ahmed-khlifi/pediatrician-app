@@ -3,6 +3,7 @@ type Pet {
   name: String!
   type: String!
   race: String!
+  petImage:String!
   age: Int!
   visits: [VisitVeterinaire!]!
 }
