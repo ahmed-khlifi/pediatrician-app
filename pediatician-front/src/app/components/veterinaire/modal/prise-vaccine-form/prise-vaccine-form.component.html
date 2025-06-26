@@ -1,0 +1,29 @@
+<mat-dialog-content>
+	<form [formGroup]="priseForm" (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
+
+		<div class="mb-3">
+			<label for="notes" class="form-label">Notes</label>
+			<textarea id="notes" class="form-control" rows="3" formControlName="notes"
+				[ngClass]="{ 'is-invalid': priseForm.get('notes')?.invalid && priseForm.get('notes')?.touched }"></textarea>
+			<div *ngIf="priseForm.get('notes')?.errors?.['required']" class="invalid-feedback">
+				Les notes sont obligatoires.
+			</div>
+		</div>
+
+		<div class="mb-3">
+			<label for="vaccineId" class="form-label">Vaccin</label>
+			<select id="vaccineId" class="form-select" formControlName="vaccineId">
+				<option value="" disabled selected>Sélectionnez un vaccin</option>
+				<option *ngFor="let vaccine of vaccines" [value]="vaccine.id">
+					{{ vaccine.name }}
+				</option>
+			</select>
+		</div>
+
+
+		<mat-dialog-actions align="end">
+			<button (click)="close()" type="button" class="btn btn-secondary me-2">Annuler</button>
+			<button [disabled]="priseForm.invalid" type="submit" class="btn btn-primary">Créer</button>
+		</mat-dialog-actions>
+	</form>
+</mat-dialog-content>
