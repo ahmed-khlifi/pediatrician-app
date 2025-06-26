@@ -225,4 +225,42 @@ export class VisitVeterinaireService {
       })
       .pipe(map((res) => res.data.visit));
   }
+
+  updateVisit(visit: {
+    id: number;
+    date?: string;
+    description?: string;
+    petId?: number;
+    ownerId?: number;
+    veterinaireId?: number;
+  }): Observable<VisitVeterinaire> {
+    return this.apollo
+      .mutate<{ updateVisit: VisitVeterinaire }>({
+        mutation: gql`
+          mutation(
+            $id: ID!
+            $date: String
+            $description: String
+            $petId: ID
+            $ownerId: ID
+            $veterinaireId: ID
+          ) {
+            updateVisit(
+              id: $id
+              date: $date
+              description: $description
+              petId: $petId
+              ownerId: $ownerId
+              veterinaireId: $veterinaireId
+            ) {
+              id
+              date
+              description
+            }
+          }
+        `,
+        variables: { ...visit },
+      })
+      .pipe(map((res) => res.data!.updateVisit));
+  }
 }
