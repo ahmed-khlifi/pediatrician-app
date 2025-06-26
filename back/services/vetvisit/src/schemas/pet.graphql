@@ -4,7 +4,7 @@ type Pet {
   type: String!
   race: String!
   age: Int!
-  visits: [VisitVeterinaire!]!
+  petImage: String!
 }
 
 extend type Query {
@@ -18,7 +18,7 @@ extend type Mutation {
     type: String!
     race: String!
     age: Int!
-    ownerId: ID!
+    petImage: String!
   ): Pet!
 
   updatePet(
@@ -27,7 +27,7 @@ extend type Mutation {
     type: String
     race: String
     age: Int
-    ownerId: ID
+    petImage: String!
   ): Pet!
 
   deletePet(id: ID!): Pet

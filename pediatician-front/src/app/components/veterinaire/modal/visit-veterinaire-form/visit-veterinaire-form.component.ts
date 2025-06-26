@@ -1,19 +1,19 @@
-import { Component, Inject } from '@angular/core';
+import { NgClass } from '@angular/common';
+import { Component, inject, Inject } from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import {
   MAT_DIALOG_DATA,
   MatDialogActions,
   MatDialogContent,
   MatDialogRef,
 } from '@angular/material/dialog';
-import {
-  FormBuilder,
-  FormGroup,
-  NgForm,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
 import { VisitVeterinaire } from '../../../../models/visit-veterinaire';
-import { NgClass } from '@angular/common';
+import { AuthService } from '../../../../services/auth.service';
 import { VisitVeterinaireService } from '../../../../services/visit-veterinaire.service';
 
 @Component({
@@ -25,7 +25,8 @@ import { VisitVeterinaireService } from '../../../../services/visit-veterinaire.
 })
 export class VisitVeterinaireFormComponent {
   visitForm!: FormGroup;
-  veterinaireId: number = 2; //TODO :change it with connected user
+  private authService = inject(AuthService);
+  veterinaireId: number = this.authService.getCurrentUser().id; //TODO :change it with connected user
   constructor(
     public dialogRef: MatDialogRef<VisitVeterinaireFormComponent>,
     @Inject(MAT_DIALOG_DATA)

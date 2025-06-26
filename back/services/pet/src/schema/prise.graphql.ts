@@ -1,22 +1,17 @@
 import { gql } from "apollo-server-express";
 
 export const PriseTypeDefs = gql`
-  extend type VisitVeterinaire @key(fields: "id") {
-    id: ID! @external
-  }
-
   type Prise {
     id: ID!
     date: String!
     notes: String
-    visit: VisitVeterinaire! @external
-    vaccine: Vaccine! @external
+    visit: VisitVeterinaire!
+    vaccine: Vaccine!
   }
 
-  
   extend type Query {
     prise(id: ID!): Prise
-    priseList: [Prise!]
+    priseList: [Prise!]!
   }
 
   extend type Mutation {
@@ -35,6 +30,6 @@ export const PriseTypeDefs = gql`
       vaccineId: ID
     ): Prise!
 
-    deletePrise(id: ID!): Prise!
+    deletePrise(id: ID!): Prise
   }
 `;

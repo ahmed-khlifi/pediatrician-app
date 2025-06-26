@@ -12,7 +12,7 @@
     "start:vetvisit": "npm run start --prefix services/vetvisit",
     "start:auth": "npm run start --prefix services/auth",
     "start:gateway": "npm run start --prefix services/gateway",
-    "start:services": "concurrently -n vaccine,vetvisit,auth -c green,blue,yellow \"npm run start:vaccine\" \"npm run start:vetvisit\" \"npm run start:auth\"",
+    "start:services": "concurrently -n vaccine,vetvisit,auth,pet -c green,blue,yellow,violet \"npm run start:vaccine\" \"npm run start:vetvisit\" \"npm run start:auth\" \"npm run start:pet\" ",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

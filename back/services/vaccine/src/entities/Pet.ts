@@ -3,24 +3,24 @@ import { VisitVeterinaire } from "./VisitVeterinaire";
 
 @Entity()
 export class Pet {
-    @PrimaryGeneratedColumn()
-    id!: number;
+  @PrimaryGeneratedColumn()
+  id!: number;
 
-    @Column()
-    name!: string;
+  @Column()
+  name!: string;
 
-    @Column()
-    type!: string; // Ex: chien, chat
+  @Column()
+  type!: string; // Ex: chien, chat
 
-    @Column()
-    race!: string;
+  @Column()
+  race!: string;
 
-    @Column()
-    age!: number;
+  @Column()
+  age!: number;
 
-    @Column()
-    petImage!:String;
+  @Column({ nullable: true })
+  petImage!: String;
 
-    @OneToMany(() => VisitVeterinaire, (visit) => visit.pet)
-    visits!: VisitVeterinaire[];
+  @OneToMany(() => VisitVeterinaire, (visit) => visit.pet)
+  visits!: VisitVeterinaire[];
 }

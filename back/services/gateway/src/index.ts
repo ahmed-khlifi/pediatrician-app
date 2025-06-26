@@ -15,15 +15,19 @@ async function bootstrap() {
       subgraphs: [
         {
           name: "vaccine",
-          url: process.env.VACCINE_URL || "http://127.0.0.1:4005/graphql",
+          url: "http://127.0.0.1:4005/graphql",
         },
         {
           name: "vetvisit",
-          url: process.env.VETVISIT_URL || "http://127.0.0.1:4004/graphql",
+          url: "http://127.0.0.1:4004/graphql",
         },
         {
           name: "auth",
-          url: process.env.AUTH_URL || "http://127.0.0.1:4001/graphql",
+          url: "http://127.0.0.1:4001/graphql",
+        },
+        {
+          name: 'pet',
+          url: "http://127.0.0.1:4008/graphql"
         },
       ],
     }),
