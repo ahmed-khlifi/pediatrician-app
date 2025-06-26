@@ -1,13 +1,14 @@
+import { CommonModule, DatePipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { VisitVeterinaireFormComponent } from '../modal/visit-veterinaire-form/visit-veterinaire-form.component';
 import { ActivatedRoute } from '@angular/router';
 import { VisitVeterinaireService } from '../../../services/visit-veterinaire.service';
+import { VisitVeterinaireFormComponent } from '../modal/visit-veterinaire-form/visit-veterinaire-form.component';
 
 @Component({
   selector: 'app-one-pet',
   standalone: true,
-  imports: [],
+  imports: [DatePipe, CommonModule],
   templateUrl: './one-pet.component.html',
   styleUrl: './one-pet.component.css',
 })

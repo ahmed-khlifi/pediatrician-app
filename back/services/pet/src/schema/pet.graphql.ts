@@ -21,7 +21,6 @@ export const PetTypeDefs = gql`
       type: String!
       race: String!
       age: Int!
-      ownerId: ID!
       petImage: String!
     ): Pet!
 

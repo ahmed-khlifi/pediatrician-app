@@ -6,12 +6,13 @@ import {
   MatDialogContent,
   MatDialogRef,
 } from '@angular/material/dialog';
+import { RouterModule } from '@angular/router';
 import { VisitVeterinaireService } from '../../../../services/visit-veterinaire.service';
 
 @Component({
   selector: 'app-show-record',
   standalone: true,
-  imports: [MatDialogContent, MatDialogActions, DatePipe],
+  imports: [MatDialogContent, MatDialogActions, DatePipe, RouterModule],
   templateUrl: './show-record.component.html',
   styleUrl: './show-record.component.css',
 })

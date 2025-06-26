@@ -1,6 +1,8 @@
 <div class="container mt-5 ms-3">
 	<h2 mat-dialog-title>
-		Vaccine Record For Pet : {{data.visit.pet.name}}
+    @if (visits.length>0) {
+		Vaccine Record For Pet : {{visits[0].pet.name}}
+    }
 	</h2>
 </div>
 <mat-dialog-content>
@@ -11,6 +13,7 @@
 			<th scope="col">Description</th>
 			<th scope="col">veterinaire</th>
 			<th scope="col">prises</th>
+      <th>Actions</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -34,6 +37,7 @@
             }
           </ul>
         </td>
+        <td><a [routerLink]="['/visit/',visit.id]" (click)="close()">+</a></td>
       </tr>
     }
 	</tbody>

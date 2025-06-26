@@ -8,7 +8,6 @@
 		<div class="col-7 ms-4  card shadow p-2">
       <div class="row">
 		@for (pet of groupedVisits().keys(); track pet) {
-	<!--@for (visit of groupedVisits(); track $index) {-->
           <div class="col-3 card" style="width: 18rem;">
             <img [src]="pet.petImage" class="card-img-top img-fluid" alt="...">
             <div class="card-body">

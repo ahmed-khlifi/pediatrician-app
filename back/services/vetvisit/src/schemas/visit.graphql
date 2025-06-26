@@ -17,6 +17,7 @@ extend type Query {
   visit(id: ID!): VisitVeterinaire
   visitList: [VisitVeterinaire!]!
   visitsByUser(userId: ID!): [VisitVeterinaire!]!
+  visitsByPet(petId: ID!): [VisitVeterinaire!]!
 }
 
 extend type Mutation {
