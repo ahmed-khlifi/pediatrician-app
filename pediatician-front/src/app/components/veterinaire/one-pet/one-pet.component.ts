@@ -3,6 +3,7 @@ import { Component, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { VisitVeterinaireService } from '../../../services/visit-veterinaire.service';
+import { PriseVaccineFormComponent } from '../modal/prise-vaccine-form/prise-vaccine-form.component';
 import { VisitVeterinaireFormComponent } from '../modal/visit-veterinaire-form/visit-veterinaire-form.component';
 
 @Component({
@@ -19,7 +20,7 @@ export class OnePetComponent {
   );
   visitId!: number;
   visit!: any;
-  constructor(private activatedRoute: ActivatedRoute) {}
+  constructor(private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
@@ -53,4 +54,17 @@ export class OnePetComponent {
       },
     });
   }
+
+  openDialogPrise() {
+    this.dialog.open(PriseVaccineFormComponent, {
+      width: '500px',
+      height: '700px',
+      data: {
+        message: 'done',
+        visit: this.visit,
+      },
+    });
+  }
+
+
 }
