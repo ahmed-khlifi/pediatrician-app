@@ -1,8 +1,9 @@
 import { Component, inject, signal, WritableSignal } from '@angular/core';
+import { AuthService } from '../../../services/auth.service';
+import { VisitVeterinaireService } from '../../../services/visit-veterinaire.service';
 import { CredentialsComponent } from '../credentials/credentials.component';
 import { PetsComponent } from '../pets/pets.component';
 import { VisitsComponent } from '../visits/visits.component';
-import { VisitVeterinaireService } from '../../../services/visit-veterinaire.service';
 
 @Component({
   selector: 'app-home',
@@ -14,7 +15,8 @@ import { VisitVeterinaireService } from '../../../services/visit-veterinaire.ser
 export class HomeComponent {
   visits: WritableSignal<any> = signal([]);
   visitService: VisitVeterinaireService = inject(VisitVeterinaireService);
-  userId: number = 1; //owner
+  authService: AuthService = inject(AuthService);
+  userId: number = this.authService.getCurrentUser().id; //owner
   ngOnInit(): void {
     this.visitService.getVisitsByUser(this.userId).subscribe({
       next: (data) => {
